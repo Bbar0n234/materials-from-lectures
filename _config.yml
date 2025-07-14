@@ -6,6 +6,11 @@ markdown: kramdown
 highlighter: rouge
 theme: minima
 
+# Math support
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
 # Plugins
 plugins:
   - jekyll-feed
