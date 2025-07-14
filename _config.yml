@@ -1,0 +1,12 @@
+title: "Материалы для доклада"
+description: "Репозиторий с материалами лекций"
+
+# GitHub Pages settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap 
