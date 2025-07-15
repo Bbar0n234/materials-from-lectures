@@ -7,7 +7,7 @@ layout: default
     <h1>{{ page.title }}</h1>
     <p class="notes-meta">
       {% if page.lecture %}
-        <a href="/lectures/vector-databases-and-ann/" class="back-to-lecture">← Вернуться к докладу</a>
+        <a href="{{ "/lectures/" | append: page.lecture | append: "/" | relative_url }}" class="back-to-lecture">← Вернуться к докладу</a>
       {% endif %}
       <span class="reading-time">{{ page.estimated_reading }}</span>
     </p>

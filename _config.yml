@@ -1,7 +1,9 @@
 title: "Доклады и материалы по тематике LLM"
 description: "Материалы для докладов Феоктистова Станислава на YouTube канале 'Клуб Разработчиков СПб'"
 
-# GitHub Pages settings
+# GitHub Pages settings  
+baseurl: "/materials-from-lectures" # название репозитория
+url: "https://bbar0n234.github.io" # замените на ваш GitHub username
 markdown: kramdown
 highlighter: rouge
 theme: minima
