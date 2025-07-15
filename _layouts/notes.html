@@ -23,14 +23,14 @@ layout: default
     
     {% if current_index > 0 %}
       {% assign prev_note = related_notes[current_index | minus: 1] %}
-      <a href="{{ prev_note.url }}" class="nav-link prev">
+      <a href="{{ prev_note.url | relative_url }}" class="nav-link prev">
         ← {{ prev_note.title }}
       </a>
     {% endif %}
     
     {% if current_index < related_notes.size | minus: 1 %}
       {% assign next_note = related_notes[current_index | plus: 1] %}
-      <a href="{{ next_note.url }}" class="nav-link next">
+      <a href="{{ next_note.url | relative_url }}" class="nav-link next">
         {{ next_note.title }} →
       </a>
     {% endif %}

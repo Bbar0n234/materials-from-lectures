@@ -53,7 +53,7 @@ layout: default
           <h3>📝 Конспекты</h3>
           <div class="notes-list">
             {% for note in related_notes %}
-              <a href="{{ note.url }}" class="note-link">
+              <a href="{{ note.url | relative_url }}" class="note-link">
                 <h4>{{ note.title }}</h4>
                 <p>{{ note.description }}</p>
                 <span class="reading-time">{{ note.estimated_reading }}</span>
@@ -99,7 +99,7 @@ layout: default
                       <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6m4-3h6v6m-11 5L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </a>
-                  <a href="{{ link.url }}" class="details-link">Подробнее</a>
+                  <a href="{{ link.url | relative_url }}" class="details-link">Подробнее</a>
                 </div>
               </div>
             {% endfor %}

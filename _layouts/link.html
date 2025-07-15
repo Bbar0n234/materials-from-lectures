@@ -52,14 +52,14 @@ layout: default
     
     {% if current_index > 0 %}
       {% assign prev_link = related_links[current_index | minus: 1] %}
-      <a href="{{ prev_link.url }}" class="nav-link prev">
+      <a href="{{ prev_link.url | relative_url }}" class="nav-link prev">
         ← {{ prev_link.title }}
       </a>
     {% endif %}
     
     {% if current_index < related_links.size | minus: 1 %}
       {% assign next_link = related_links[current_index | plus: 1] %}
-      <a href="{{ next_link.url }}" class="nav-link next">
+      <a href="{{ next_link.url | relative_url }}" class="nav-link next">
         {{ next_link.title }} →
       </a>
     {% endif %}

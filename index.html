@@ -11,7 +11,7 @@ title: Доклады
     {% if lectures.size > 0 %}
       <div class="lectures-grid">
         {% for lecture in lectures %}
-          <article class="lecture-card" onclick="window.location.href='{{ lecture.url }}'">
+          <article class="lecture-card" onclick="window.location.href='{{ lecture.url | relative_url }}'">
             {% if lecture.youtube_id %}
               <div class="youtube-preview">
                 <img src="https://img.youtube.com/vi/{{ lecture.youtube_id }}/maxresdefault.jpg" 
