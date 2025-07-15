@@ -1,54 +1,203 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Материалы для доклада</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px 0;
-            border-bottom: 2px solid #e9ecef;
-        }
-        .nav-container {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-        }
-        .nav-link {
-            display: inline-block;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
-        .nav-link:hover {
-            background: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>Материалы для доклада</h1>
-        <p>Добро пожаловать на страницу с материалами лекций</p>
-    </div>
+---
+layout: default
+title: Доклады
+---
+
+<div class="main-page">
+  <section class="lectures-section">
+    <h2>Доклады</h2>
     
-    <div class="nav-container">
-        <h2>Навигация</h2>
-        <a href="materials.html" class="nav-link">📋 Перейти к материалам</a>
-    </div>
-</body>
-</html> 
+    {% assign lectures = site.lectures | sort: "date" | reverse %}
+    {% if lectures.size > 0 %}
+      <div class="lectures-grid">
+        {% for lecture in lectures %}
+          <article class="lecture-card" onclick="window.location.href='{{ lecture.url }}'">
+            {% if lecture.youtube_id %}
+              <div class="youtube-preview">
+                <img src="https://img.youtube.com/vi/{{ lecture.youtube_id }}/maxresdefault.jpg" 
+                     alt="{{ lecture.title }}" 
+                     loading="lazy">
+                <div class="play-button">
+                  <svg width="68" height="48" viewBox="0 0 68 48" fill="none">
+                    <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.64 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/>
+                    <path d="m45.02 24-13.6-7.83v15.66L45.02 24z" fill="white"/>
+                  </svg>
+                </div>
+              </div>
+            {% else %}
+              <div class="video-preview-placeholder">
+                <div class="placeholder-icon">
+                  <svg width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="30" stroke="#ddd" stroke-width="4"/>
+                    <path d="M26 20l16 12-16 12V20z" fill="#ddd"/>
+                  </svg>
+                </div>
+                <span class="coming-soon">Скоро на YouTube</span>
+              </div>
+            {% endif %}
+            
+            <div class="lecture-info">
+              <h3>{{ lecture.title }}</h3>
+              <p class="description">{{ lecture.description }}</p>
+              <div class="lecture-meta">
+                <span class="date">{{ lecture.date | date: "%d.%m.%Y" }}</span>
+                <span class="duration">{{ lecture.duration }}</span>
+              </div>
+              
+              {% assign related_notes = site.notes | where: "lecture", lecture.notes_folder %}
+              {% if related_notes.size > 0 %}
+                <div class="notes-count">
+                  {{ related_notes.size }} конспект{% if related_notes.size > 1 %}а{% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>Доклады скоро появятся...</p>
+    {% endif %}
+  </section>
+</div>
+
+<style>
+.site-header {
+  text-align: center;
+}
+
+.site-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.site-header p {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.lectures-section h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+}
+
+.lectures-grid {
+  display: grid;
+  gap: 2rem;
+  max-width: 800px;
+}
+
+.lecture-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: white;
+  cursor: pointer;
+}
+
+.lecture-card:hover {
+  border-color: #0066cc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.youtube-preview {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.youtube-preview img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-preview-placeholder {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+}
+
+.coming-soon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.youtube-preview:hover .play-button {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.lecture-info {
+  padding: 1.5rem;
+}
+
+.lecture-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.description {
+  color: #666;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.lecture-meta {
+  display: flex;
+  gap: 1rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.notes-count {
+  color: #0066cc;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .site-header h1 {
+    font-size: 2rem;
+  }
+  
+  .lecture-card {
+    margin: 0 1rem;
+  }
+}
+</style> 

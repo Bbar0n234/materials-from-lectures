@@ -1,0 +1,309 @@
+---
+layout: default
+---
+
+<div class="lecture-page">
+  <header class="lecture-header">
+    <h1>{{ page.title }}</h1>
+    <p class="lecture-meta">
+      <span class="date">{{ page.date | date: "%d.%m.%Y" }}</span>
+      <span class="duration">{{ page.duration }}</span>
+    </p>
+  </header>
+
+  {% if page.youtube_id %}
+    <div class="youtube-container">
+      <iframe width="560" height="315" 
+              src="https://www.youtube.com/embed/{{ page.youtube_id }}" 
+              title="{{ page.title }}" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerpolicy="strict-origin-when-cross-origin" 
+              allowfullscreen>
+      </iframe>
+    </div>
+  {% else %}
+    <div class="video-placeholder">
+      <div class="placeholder-content">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30" stroke="#ddd" stroke-width="4"/>
+          <path d="M26 20l16 12-16 12V20z" fill="#ddd"/>
+        </svg>
+        <h3>Доклад готовится к публикации</h3>
+        <p>Видео скоро появится на YouTube канале "Клуб Разработчиков СПб"</p>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="lecture-content">
+    {{ content }}
+  </div>
+
+  <div class="lecture-materials">
+    <h2>Материалы доклада</h2>
+    
+    {% assign lecture_slug = page.url | split: '/' | last %}
+    {% assign related_notes = site.notes | where: "lecture", lecture_slug | sort: "order" %}
+    {% assign related_links = site.links | where: "lecture", lecture_slug | sort: "order" %}
+    
+    {% if related_notes.size > 0 or related_links.size > 0 %}
+      <!-- Конспекты и заметки -->
+      {% if related_notes.size > 0 %}
+        <div class="materials-section">
+          <h3>📝 Конспекты</h3>
+          <div class="notes-list">
+            {% for note in related_notes %}
+              <a href="{{ note.url }}" class="note-link">
+                <h4>{{ note.title }}</h4>
+                <p>{{ note.description }}</p>
+                <span class="reading-time">{{ note.estimated_reading }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Ссылки на внешние ресурсы -->
+      {% if related_links.size > 0 %}
+        <div class="materials-section">
+          <h3>🔗 Дополнительные материалы</h3>
+          <div class="links-list">
+            {% for link in related_links %}
+              <div class="link-card">
+                <div class="link-icon">
+                  {% if link.type == "chatgpt" %}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.078 6.078 0 0 0 6.283 2.899 5.98 5.98 0 0 0 5.262 0 6.014 6.014 0 0 0 6.16-2.9 5.986 5.986 0 0 0-.743-7.096 5.99 5.99 0 0 0 .516-4.91" fill="#74aa9c"/>
+                    </svg>
+                  {% elsif link.type == "colab" %}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.94 8.7c-.02-.14-.03-.28-.03-.42 0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3c-.58 0-1.12-.16-1.58-.44L16.94 8.7z" fill="#f9ab00"/>
+                      <path d="M7.06 15.3c.02.14.03.28.03.42 0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3c.58 0 1.12.16 1.58.44L7.06 15.3z" fill="#f9ab00"/>
+                      <path d="M12 5.28c-3.72 0-6.72 3-6.72 6.72s3 6.72 6.72 6.72 6.72-3 6.72-6.72S15.72 5.28 12 5.28z" fill="#ff6d01"/>
+                    </svg>
+                  {% else %}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#0066cc"/>
+                    </svg>
+                  {% endif %}
+                </div>
+                <div class="link-content">
+                  <h4>{{ link.title }}</h4>
+                  <p>{{ link.description }}</p>
+                  <span class="link-type">{{ link.type_display | default: link.type }}</span>
+                </div>
+                <div class="link-actions">
+                  <a href="{{ link.external_url }}" target="_blank" rel="noopener noreferrer" class="external-link-btn">
+                    Открыть
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6m4-3h6v6m-11 5L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                  <a href="{{ link.url }}" class="details-link">Подробнее</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% else %}
+      <p>Материалы скоро появятся...</p>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.youtube-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.youtube-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-placeholder {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  margin: 2rem 0;
+  background: #f8f9fa;
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.placeholder-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #666;
+}
+
+.placeholder-content h3 {
+  margin: 1rem 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.placeholder-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.lecture-meta {
+  color: #666;
+  margin: 1rem 0;
+}
+
+.lecture-meta span {
+  margin-right: 1rem;
+}
+
+.notes-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.note-link {
+  display: block;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+
+.note-link:hover {
+  border-color: #0066cc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.note-link h3 {
+  margin: 0 0 0.5rem 0;
+  color: #0066cc;
+}
+
+.note-link p {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.reading-time {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.materials-section {
+  margin-bottom: 2rem;
+}
+
+.materials-section h3 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.note-link h4 {
+  margin: 0 0 0.5rem 0;
+  color: #0066cc;
+  font-size: 1rem;
+}
+
+.links-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.link-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.link-card:hover {
+  border-color: #0066cc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.link-icon {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.link-content {
+  flex-grow: 1;
+}
+
+.link-content h4 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.link-content p {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.link-type {
+  font-size: 0.8rem;
+  background: #f0f0f0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  color: #666;
+}
+
+.link-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.external-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1rem;
+  background: #0066cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.external-link-btn:hover {
+  background: #0052a3;
+}
+
+.details-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.details-link:hover {
+  text-decoration: underline;
+}
+</style> 

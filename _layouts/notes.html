@@ -1,0 +1,85 @@
+---
+layout: default
+---
+
+<div class="notes-page">
+  <header class="notes-header">
+    <h1>{{ page.title }}</h1>
+    <p class="notes-meta">
+      {% if page.lecture %}
+        <a href="/lectures/vector-databases-and-ann/" class="back-to-lecture">← Вернуться к докладу</a>
+      {% endif %}
+      <span class="reading-time">{{ page.estimated_reading }}</span>
+    </p>
+  </header>
+
+  <div class="notes-content">
+    {{ content }}
+  </div>
+
+  <nav class="notes-navigation">
+    {% assign related_notes = site.notes | where: "lecture", page.lecture | sort: "order" %}
+    {% assign current_index = related_notes | map: "url" | indexOf: page.url %}
+    
+    {% if current_index > 0 %}
+      {% assign prev_note = related_notes[current_index | minus: 1] %}
+      <a href="{{ prev_note.url }}" class="nav-link prev">
+        ← {{ prev_note.title }}
+      </a>
+    {% endif %}
+    
+    {% if current_index < related_notes.size | minus: 1 %}
+      {% assign next_note = related_notes[current_index | plus: 1] %}
+      <a href="{{ next_note.url }}" class="nav-link next">
+        {{ next_note.title }} →
+      </a>
+    {% endif %}
+  </nav>
+</div>
+
+<style>
+.notes-meta {
+  color: #666;
+  margin: 1rem 0;
+}
+
+.back-to-lecture {
+  color: #0066cc;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+.back-to-lecture:hover {
+  text-decoration: underline;
+}
+
+.reading-time {
+  font-size: 0.9rem;
+}
+
+.notes-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.nav-link {
+  color: #0066cc;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #f8f9fa;
+  border-color: #0066cc;
+}
+
+.nav-link.next {
+  margin-left: auto;
+}
+</style> 

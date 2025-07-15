@@ -1,0 +1,244 @@
+/* Кастомная серо-синяя тема для materials-from-lectures */
+/* Дополняет стандартные стили minima */
+
+/* Сброс отступов браузера */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Основные цвета */
+body {
+  color: #343640;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+  color: #1f91e2;
+}
+
+/* Ссылки */
+a {
+  color: #1f91e2;
+}
+
+a:hover {
+  color: #0d7ac4;
+}
+
+a:visited {
+  color: #1a7cc2;
+}
+
+/* Шапка сайта */
+.site-header {
+  background-color: #343640;
+  border-bottom: 2px solid #1f91e2;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.site-title {
+  color: #ffffff !important;
+}
+
+.site-title:hover {
+  color: #1f91e2 !important;
+}
+
+.site-nav .page-link {
+  color: #ffffff;
+}
+
+.site-nav .page-link:hover {
+  color: #1f91e2;
+}
+
+/* Мобильная навигация */
+.site-nav .trigger {
+  background-color: #343640;
+  border: 1px solid #1f91e2;
+}
+
+/* Иконка видео и текст "Скоро на YouTube" */
+.placeholder-icon {
+  margin-bottom: 12px;
+}
+
+.coming-soon {
+  margin-top: 8px;
+  display: block;
+}
+
+/* Код */
+code {
+  color: #1f91e2;
+}
+
+/* Цитаты */
+blockquote {
+  border-left: 4px solid #1f91e2;
+}
+
+/* Таблицы */
+th {
+  background-color: #1f91e2;
+  color: white;
+}
+
+/* Подвал */
+.site-footer {
+  background-color: #343640;
+  color: #ffffff;
+  border-top: 2px solid #1f91e2;
+}
+
+.site-footer a {
+  color: #1f91e2;
+}
+
+.site-footer a:hover {
+  color: #ffffff;
+}
+
+/* Перераспределение ширин колонок в подвале */
+.footer-col-wrapper {
+  font-size: 16px;
+  display: flex !important;
+  gap: 15px;
+}
+
+.footer-col h3{
+  font-size: 20px !important;
+  font-weight: bold;
+}
+
+.footer-col-1 {
+  flex: 0 0 20% !important;
+  width: 20% !important;
+  max-width: 20% !important;
+}
+
+.footer-col-2.author-section {
+  flex: 0 0 45% !important;
+  width: 45% !important;
+  max-width: 45% !important;
+}
+
+.footer-col-3 {
+  flex: 0 0 30% !important;
+  width: 30% !important;
+  max-width: 30% !important;
+}
+
+/* Стили для контактов в подвале */
+.contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-item {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateX(5px);
+  background-color: rgba(31, 145, 226, 0.1);
+  border-radius: 4px;
+  padding-left: 8px;
+}
+
+.contact-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.contact-item a {
+  color: #1f91e2;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.contact-item a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Адаптивность для контактов */
+@media (max-width: 768px) {
+  .footer-col-wrapper {
+    flex-direction: column;
+  }
+  
+  .footer-col-1, 
+  .footer-col-2.author-section, 
+  .footer-col-3 {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px;
+  }
+  
+  .contacts-list {
+    gap: 6px;
+  }
+  
+  .contact-item {
+    padding: 4px 0;
+  }
+  
+  .contact-item a {
+    font-size: 13px;
+  }
+}
+
+/* Контент постов */
+.post-header h1 {
+  color: #343640;
+}
+
+.post-content h2 {
+  border-bottom: 2px solid #1f91e2;
+  padding-bottom: 8px;
+}
+
+.post-content h3 {
+  color: #343640;
+}
+
+/* Выделение */
+mark, .highlight {
+  background-color: rgba(31, 145, 226, 0.2);
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+/* Разделители */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #1f91e2, #343640);
+}
+
+/* Кнопки */
+.btn, button {
+  background-color: #1f91e2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover, button:hover {
+  background-color: #0d7ac4;
+} 

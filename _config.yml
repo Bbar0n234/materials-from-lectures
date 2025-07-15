@@ -1,10 +1,14 @@
-title: "Материалы для доклада"
-description: "Репозиторий с материалами лекций"
+title: "Доклады и материалы по тематике LLM"
+description: "Материалы для докладов Феоктистова Станислава на YouTube канале 'Клуб Разработчиков СПб'"
 
 # GitHub Pages settings
 markdown: kramdown
 highlighter: rouge
 theme: minima
+
+# Custom color theme (for minima 2.5)
+# Available options: default, dark, blue, green
+color_theme: default
 
 # Math support
 kramdown:
@@ -14,4 +18,34 @@ kramdown:
 # Plugins
 plugins:
   - jekyll-feed
-  - jekyll-sitemap 
+
+# Allow documents with a future date to be published locally, so lecture previews appear
+future: true
+
+collections:
+  lectures:
+    output: true
+    permalink: /:collection/:name/
+  notes:
+    output: true
+    permalink: /:collection/:name/
+  links:
+    output: true
+    permalink: /:collection/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "lectures"
+    values:
+      layout: "lecture"
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      layout: "notes"
+  - scope:
+      path: ""
+      type: "links"
+    values:
+      layout: "link" 
