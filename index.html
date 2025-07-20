@@ -44,10 +44,13 @@ title: Доклады
                 <span class="duration">{{ lecture.duration }}</span>
               </div>
               
-              {% assign related_notes = site.notes | where: "lecture", lecture.notes_folder %}
-              {% if related_notes.size > 0 %}
+              {% assign lecture_id = lecture.notes_folder | default: lecture.url | split: '/' | last %}
+              {% assign related_notes = site.notes | where: "lecture", lecture_id %}
+              {% assign related_links = site.links | where: "lecture", lecture_id %}
+              {% assign total_materials = related_notes.size | plus: related_links.size %}
+              {% if total_materials > 0 %}
                 <div class="notes-count">
-                  {{ related_notes.size }} конспект{% if related_notes.size > 1 %}а{% endif %}
+                  {{ total_materials }} материал{% if total_materials == 1 %}{% elsif total_materials < 5 %}а{% else %}ов{% endif %}
                 </div>
               {% endif %}
             </div>

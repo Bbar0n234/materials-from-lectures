@@ -42,9 +42,9 @@ layout: default
   <div class="lecture-materials">
     <h2>Материалы доклада</h2>
     
-    {% assign lecture_slug = page.url | split: '/' | last %}
-    {% assign related_notes = site.notes | where: "lecture", lecture_slug | sort: "order" %}
-    {% assign related_links = site.links | where: "lecture", lecture_slug | sort: "order" %}
+    {% assign lecture_id = page.notes_folder | default: page.url | split: '/' | last %}
+    {% assign related_notes = site.notes | where: "lecture", lecture_id | sort: "order" %}
+    {% assign related_links = site.links | where: "lecture", lecture_id | sort: "order" %}
     
     {% if related_notes.size > 0 or related_links.size > 0 %}
       <!-- Конспекты и заметки -->
