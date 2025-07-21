@@ -35,8 +35,8 @@ layout: lecture
 title: "Название доклада"
 date: 2025-02-20
 description: "Краткое описание доклада"
-youtube_id: kvJkinfe0i8  # ID видео на YouTube (опционально)
-youtube_url: https://youtu.be/kvJkinfe0i8  # Полная ссылка (опционально)
+youtube_id: kvJkinfe0i8  # ID видео на YouTube
+youtube_url: https://youtu.be/kvJkinfe0i8  # Полная ссылка
 duration: "28 мин"
 ---
 
